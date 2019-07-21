@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <style>
+      #footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem;            /* Footer height */
+      }
+    </style>
     <title>Book CMS</title>
   </head>
 
@@ -8,8 +16,9 @@
 
     <%= yield %>
 
-    <footer>
-      <a href="/">Home</a>
+    <footer id="footer">
+      <a href="/">Home</a>&nbsp &nbsp
+      <a href="/logout">Logout</a>
     </footer>
   </body>
 
