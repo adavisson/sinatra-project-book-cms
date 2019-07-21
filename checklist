@@ -1,0 +1,27 @@
+Sinatra Project Checklist of Requirements
+
+- Try to create a skeleton repository on Github
+  -> Complete
+
+- What is the purpose of ActiveRecord?
+  -> It allows us to represent models from our tables and the relationship between the models
+
+- What models and associations will you have and why?
+  -> users, books, authors, genres, author_genres
+
+- What validations will you use on your models?
+  -> Require that all fields are entered
+  -> Require that a user must be logged in to perform any CRUD actions
+
+- How will you implement an authentication system?
+  -> Using sessions and also implementing the bcrypt gem
+
+- Who should be able to edit and destroy a model?
+  -> Only logged in users
+
+- What will you need to implement to have your application considered a CRUD app?
+  -> Create books, authors, and genres
+  -> Read all books, books owned by a specifice user, genres, and authors
+    -> Potentially list books by genre and author
+  -> Update book information, and reset user password
+  -> Delete books if the user who created teh book is logged in
