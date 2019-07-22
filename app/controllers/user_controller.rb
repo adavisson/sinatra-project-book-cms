@@ -16,6 +16,10 @@ class UserController < ApplicationController
     end
   end
 
+  get '/signup-failure' do
+    erb :'/users/signup-failure'
+  end
+
   get '/users/:slug' do
     if logged_in?
       @user = User.find_by_slug(params[:slug])
@@ -46,6 +50,12 @@ class UserController < ApplicationController
 
   post '/signup' do
     user = User.new(params[:user])
+    User.all.each do |u|
+      if u.name == user.name
+        redirect '/signup-failure'
+      end
+    end
+      
     if user.save
       session[:user_id] = user.id
       redirect '/books'
