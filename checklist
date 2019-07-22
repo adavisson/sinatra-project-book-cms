@@ -12,6 +12,8 @@ Sinatra Project Checklist of Requirements
 - What validations will you use on your models?
   -> Require that all fields are entered
   -> Require that a user must be logged in to perform any CRUD actions
+  -> Check username or email before creating a user
+  -> (optional) Implement error/warning messages to Users for failures(failed logins, Blank fields etc.)
 
 - How will you implement an authentication system?
   -> Using sessions and also implementing the bcrypt gem
@@ -25,3 +27,6 @@ Sinatra Project Checklist of Requirements
     -> Potentially list books by genre and author
   -> Update book information, and reset user password
   -> Delete books if the user who created teh book is logged in
+
+
+- Think about moving common controller methods to helper methods

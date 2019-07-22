@@ -4,7 +4,7 @@
 
 <form action="/books" method="POST">
   <label for="title">Title: </label>
-    <input type="text" id="title" name="book[title]"><br><br>
+    <input type="text" id="title" name="book[title]" required><br><br>
   <h3>Select Author or Create a New Author:</h3>
   <% @authors.each do |author| %>
     <input type="radio" id="<%= author.id %>" name="book[author_id]" value="<%= author.id %>"><%= author.name %></input>
