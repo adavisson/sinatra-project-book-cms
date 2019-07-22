@@ -19,20 +19,20 @@ class BookController < ApplicationController
     end
   end
 
-  get '/books/:id' do
+  get '/books/:slug' do
     if logged_in?
-      @book = Book.find(params[:id])
+      @book = Book.find_book_by_slug(params[:slug])
       erb :'/books/show'
     else
       redirect '/login'
     end
   end
 
-  get '/books/:id/edit' do
+  get '/books/:slug/edit' do
     if logged_in?
       @authors = Author.all
       @genres = Genre.all
-      @book = Book.find(params[:id])
+      @book = Book.find_book_by_slug(params[:slug])
       erb :'/books/edit'
     else
       redirect '/login'
@@ -65,8 +65,8 @@ class BookController < ApplicationController
     redirect '/books'
   end
 
-  patch '/books/:id' do
-    book = Book.find(params[:id])
+  patch '/books/:slug' do
+    book = Book.find_book_by_slug(params[:slug])
 
     if params[:author][:name] != ""
       author = Author.create(params[:author])
@@ -85,9 +85,9 @@ class BookController < ApplicationController
     redirect '/books'
   end
 
-  delete '/books/:id' do
+  delete '/books/:slug' do
     if logged_in?
-      book = Book.find(params[:id])
+      book = Book.find_book_by_slug(params[:slug])
       if book.user == current_user
         book.delete
         redirect '/books'
