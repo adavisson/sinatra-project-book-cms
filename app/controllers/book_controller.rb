@@ -79,7 +79,7 @@ class BookController < ApplicationController
     else
       genre = Genre.find(params[:book][:genre_id])
     end
-
+      
     book.update(title: params[:book][:title], author_id: author.id, genre_id: genre.id)
 
     redirect '/books'

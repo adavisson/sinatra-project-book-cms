@@ -26,7 +26,16 @@ Sinatra Project Checklist of Requirements
   -> Read all books, books owned by a specifice user, genres, and authors
     -> Potentially list books by genre and author
   -> Update book information, and reset user password
-  -> Delete books if the user who created teh book is logged in
+  -> Delete books if the user who created the book is logged in
 
 
 - Think about moving common controller methods to helper methods
+
+TODO
+- Check new books on creation to see if they already exist.
+- Try adding flash messages to errors
+- Create seed file for db?
+
+USERS
+andrew password
+simon pickle

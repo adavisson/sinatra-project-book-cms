@@ -2,6 +2,10 @@
 <html>
   <head>
     <style>
+      #container {
+        min-height:100vh;
+        position:relative;
+      }
       #footer {
         background-color: lightblue;
         position: absolute;
@@ -11,6 +15,13 @@
       }
       body {
         background-color: #FFCF9E;
+        margin: auto;
+        padding: auto;
+        height: 100%;
+      }
+      #body {
+        padding: 10px;
+        padding-bottom: 2.5rem;
       }
       .form {
         background-color: lightblue;
@@ -18,24 +29,28 @@
         padding: 10px;
         border-style: solid;
         border-width: 2px;
+        margin: 10px;
       }
     </style>
     <title>Book CMS</title>
   </head>
 
   <body>
-
-    <%= yield %>
-
-    <footer id="footer">
-      <a href="/">Home</a>&nbsp &nbsp
-      <% if logged_in? %>
-        <a href="/users/<%= current_user.slug %>">My Books</a>&nbsp &nbsp
-        <a href="/authors">Authors</a>&nbsp &nbsp
-        <a href="/genres">Genres</a>&nbsp &nbsp
-        <a href="/logout">Logout</a>
-      <% end %>
-    </footer>
+    <div id="container">
+      <div id="body">
+        <%= yield %>
+      </div>
+      <footer id="footer">
+        <a href="/">Home</a>&nbsp &nbsp
+        <% if logged_in? %>
+          <a href="/users/<%= current_user.slug %>">My Books</a>&nbsp &nbsp
+          <a href="/books">Books</a>&nbsp &nbsp
+          <a href="/authors">Authors</a>&nbsp &nbsp
+          <a href="/genres">Genres</a>&nbsp &nbsp
+          <a href="/logout">Logout</a>
+        <% end %>
+      </footer>
+    </div>
   </body>
 
 </html>
