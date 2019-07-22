@@ -1,3 +1,9 @@
-<h1>Complete Inventory of Books</h1>
+<h1>Complete Inventory of Books</h1><br><br>
 
-<p>List all books</p>
+<% @books.each do |book| %>
+  Title: <%= book.title %><br>
+  Author: <%= book.author.name %><br>
+  Genre: <%= book.genre.name %><br><br><br>
+<% end %><br><br>
+
+<p><a href="/books/new">New Book</a></p>

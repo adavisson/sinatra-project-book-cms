@@ -1,0 +1,23 @@
+<h1>New Book</h1>
+
+<p>Create form for new book</p>
+
+<form action="/books" method="POST">
+  <label for="title">Title: </label>
+    <input type="text" id="title" name="book[title]"><br><br>
+  <h3>Select Author or Create a New Author:</h3>
+  <% @authors.each do |author| %>
+    <input type="radio" id="<%= author.id %>" name="book[author_id]" value="<%= author.id %>"><%= author.name %></input>
+  <% end %>
+  <p><em>Create a New Author</em></p>
+  <label for="author_name">Name: </label>
+    <input type="text" id="author_name" name="author[name]"><br><br>
+  <h3>Select Genre or Create a New Genre:</h3>
+  <% @genres.each do |genre| %>
+    <input type="radio" id="<%= genre.id %>" name="book[genre_id]" value="<%= genre.id%> "><%= genre.name %></input>
+  <% end %>
+  <p><em>Create a New Genre</em></p>
+  <label for="genre_name">Name: </label>
+    <input type="text" id="genre_name" name="genre[name]"><br><br><br>
+  <input type="submit" id="submit" value="Create Book">
+</form>
