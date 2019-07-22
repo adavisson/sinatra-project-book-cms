@@ -3,7 +3,9 @@
 <% @user.books.each do |book| %>
   Title: <%= book.title %><br>
   Author: <%= book.author.name %><br>
-  Genre: <%= book.genre.name %><br><br><br>
+  Genre: <%= book.genre.name %><br>
+  <a href="/books/<%= book.id %>/edit">Edit</a>
+  <br><br><br>
 <% end %><br><br>
 
 <p><a href="/books">All Books</a></p>

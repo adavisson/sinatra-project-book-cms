@@ -18,11 +18,13 @@ class BookController < ApplicationController
       redirect '/login'
     end
   end
-  
-  get '/books/:id' do
+
+  get '/books/:id/edit' do
     if logged_in?
-      @user = User.find(params[:id])
-      erb :'/books/show'
+      @authors = Author.all
+      @genres = Genre.all
+      @book = Book.find(params[:id])
+      erb :'/books/edit'
     else
       redirect '/login'
     end
@@ -50,6 +52,26 @@ class BookController < ApplicationController
     if !author.genres.include?(genre)
       author.genres << genre
     end
+
+    redirect '/books'
+  end
+
+  patch '/books/:id' do
+    book = Book.find(params[:id])
+
+    if params[:author][:name] != ""
+      author = Author.create(params[:author])
+    else
+      author = Author.find(params[:book][:author_id])
+    end
+    
+    if params[:genre][:name] != ""
+      genre = Genre.create(params[:genre])
+    else
+      genre = Genre.find(params[:book][:genre_id])
+    end
+
+    book.update(title: params[:book][:title], author_id: author.id, genre_id: genre.id)
 
     redirect '/books'
   end
