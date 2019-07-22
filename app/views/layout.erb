@@ -31,6 +31,7 @@
       <a href="/">Home</a>&nbsp &nbsp
       <% if logged_in? %>
         <a href="/users/<%= current_user.slug %>">My Books</a>&nbsp &nbsp
+        <a href="/genres">Genres</a>&nbsp &nbsp
         <a href="/logout">Logout</a>
       <% end %>
     </footer>

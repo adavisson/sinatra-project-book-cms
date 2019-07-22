@@ -1,0 +1,13 @@
+<h1>Genre: <%= @genre.name %></h1>
+
+<% @genre.books.each do |book| %>
+  Title: <%= book.title %><br>
+  Author: <%= book.author.name %><br>
+  <a href="/books/<%= book.slug_book %>">View</a> &nbsp &nbsp
+  <a href="/books/<%= book.slug_book %>/edit">Edit</a>
+  <form action="/books/<%= book.slug_book %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" id="delete" value="Delete">
+  </form>
+  <br><hr><br>
+<% end %><br><br>
