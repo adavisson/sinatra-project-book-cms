@@ -4,8 +4,13 @@
   Title: <%= book.title %><br>
   Author: <%= book.author.name %><br>
   Genre: <%= book.genre.name %><br>
+  <a href="/books/<%= book.id %>">View</a> &nbsp &nbsp
   <a href="/books/<%= book.id %>/edit">Edit</a>
-  <br><br><br>
+  <form action="/books/<%= book.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" id="delete" value="Delete">
+  </form>
+  <br><hr><br>
 <% end %><br><br>
 
 <p><a href="/books">All Books</a></p>

@@ -19,6 +19,15 @@ class BookController < ApplicationController
     end
   end
 
+  get '/books/:id' do
+    if logged_in?
+      @book = Book.find(params[:id])
+      erb :'/books/show'
+    else
+      redirect '/login'
+    end
+  end
+
   get '/books/:id/edit' do
     if logged_in?
       @authors = Author.all
@@ -74,6 +83,20 @@ class BookController < ApplicationController
     book.update(title: params[:book][:title], author_id: author.id, genre_id: genre.id)
 
     redirect '/books'
+  end
+
+  delete '/books/:id' do
+    if logged_in?
+      book = Book.find(params[:id])
+      if book.user == current_user
+        book.delete
+        redirect '/books'
+      else
+        #Create error
+      end
+    else
+      redirect '/login'
+    end
   end
 
 end

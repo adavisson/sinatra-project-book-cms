@@ -4,10 +4,15 @@
   Title: <%= book.title %><br>
   Author: <%= book.author.name %><br>
   Genre: <%= book.genre.name %><br>
+  <a href="/books/<%= book.id %>">View</a> &nbsp &nbsp
   <% if current_user == book.user %>
-  <a href="/books/<%= book.id %>/edit">Edit</a>
+  <a href="/books/<%= book.id %>/edit">Edit</a> &nbsp &nbsp
+  <form action="/books/<%= book.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" id="delete" value="Delete">
+  </form>
   <% end %>
-  <br><br><br>
+  <br><hr><br>
 <% end %><br><br>
 
 <p><a href="/books/new">New Book</a></p>
