@@ -10,12 +10,26 @@ class BookController < ApplicationController
   end
 
   get '/books/new' do
-    @authors = Author.all
-    @genres = Genre.all
-    erb :'/books/new'
+    if logged_in?
+      @authors = Author.all
+      @genres = Genre.all
+      erb :'/books/new'
+    else
+      redirect '/login'
+    end
+  end
+  
+  get '/books/:id' do
+    if logged_in?
+      @user = User.find(params[:id])
+      erb :'/books/show'
+    else
+      redirect '/login'
+    end
   end
 
   post '/books' do
+    user = current_user
     book = Book.create(params[:book])
     if params[:author][:name] != ""
       author = Author.create(params[:author])
@@ -31,6 +45,7 @@ class BookController < ApplicationController
 
     author.books << book
     genre.books << book
+    user.books << book
 
     if !author.genres.include?(genre)
       author.genres << genre

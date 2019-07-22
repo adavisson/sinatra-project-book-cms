@@ -5,5 +5,6 @@
   <p><a href="/signup">Sign Up</a></p>
 <% else %>
   <p>View <a href="/books">Books</a><p>
+  <p>View <a href="/books/<%= current_user.id %>">My Books</a><p>
   <p>Create a <a href="/books/new">New Book</a></p>
 <% end %>

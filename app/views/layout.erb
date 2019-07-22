@@ -30,6 +30,7 @@
     <footer id="footer">
       <a href="/">Home</a>&nbsp &nbsp
       <% if logged_in? %>
+        <a href="/books/<%= current_user.id %>">My Books</a>&nbsp &nbsp
         <a href="/logout">Logout</a>
       <% end %>
     </footer>
