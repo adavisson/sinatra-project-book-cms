@@ -12,6 +12,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/' do
+    #binding.pry      # Easy pry to access models
     erb :index
   end
 
