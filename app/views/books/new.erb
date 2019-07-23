@@ -1,5 +1,9 @@
 <h1>New Book</h1>
 
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
 <p>Create form for new book</p>
 
 <form class="form" action="/books" method="POST">

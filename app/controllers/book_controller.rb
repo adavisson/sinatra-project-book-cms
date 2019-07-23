@@ -19,6 +19,10 @@ class BookController < ApplicationController
     end
   end
 
+  get '/books/new-failure' do
+    erb :'/books/new-failure'
+  end
+
   get '/books/:slug' do
     if logged_in?
       @book = Book.find_book_by_slug(params[:slug])
@@ -41,15 +45,36 @@ class BookController < ApplicationController
 
   post '/books' do
     user = current_user
-    book = Book.create(params[:book])
+    book = Book.new(params[:book])
+ 
+    if book.title = ""
+      redirect '/books/new-failure'
+    elsif (params[:author][:name] == "") && book.author_id == nil
+      redirect '/books/new-failure'
+    elsif (params[:genre][:name] == "") && book.genre_id == nil
+      redirect '/books/new-failure'
+    end
+
+    Book.all.each do |b|
+      if book.slug_book == b.slug_book
+        redirect '/books/new-failure'
+      end
+    end
+
+    book.save
+
     if params[:author][:name] != ""
       author = Author.create(params[:author])
+    elsif (params[:author][:name] == "") && (book.author_id == nil)
+      redirect '/books/new-failure'
     else
       author = Author.find(params[:book][:author_id])
     end
     
     if params[:genre][:name] != ""
       genre = Genre.create(params[:genre])
+    elsif (params[:genre][:name]) == "" && (book.genre_id == nil)
+      redirect '/books/new-failure'
     else
       genre = Genre.find(params[:book][:genre_id])
     end
@@ -67,6 +92,20 @@ class BookController < ApplicationController
 
   patch '/books/:slug' do
     book = Book.find_book_by_slug(params[:slug])
+
+    if book.title = ""
+      redirect '/books/new-failure'
+    elsif (params[:author][:name] == "") && book.author_id == nil
+      redirect '/books/new-failure'
+    elsif (params[:genre][:name] == "") && book.genre_id == nil
+      redirect '/books/new-failure'
+    end
+
+    Book.all.each do |b|
+      if book.slug_book == b.slug_book
+        redirect '/books/new-failure'
+      end
+    end
 
     if params[:author][:name] != ""
       author = Author.create(params[:author])
