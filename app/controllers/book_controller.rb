@@ -23,6 +23,10 @@ class BookController < ApplicationController
     erb :'/books/new-failure'
   end
 
+  get '/books/delete-failure' do
+    erb :'/books/delete-failure'
+  end
+
   get '/books/:slug' do
     if logged_in?
       @book = Book.find_book_by_slug(params[:slug])
@@ -46,8 +50,8 @@ class BookController < ApplicationController
   post '/books' do
     user = current_user
     book = Book.new(params[:book])
- 
-    if book.title = ""
+ #binding.pry
+    if book.title == ""
       redirect '/books/new-failure'
     elsif (params[:author][:name] == "") && book.author_id == nil
       redirect '/books/new-failure'
@@ -65,16 +69,12 @@ class BookController < ApplicationController
 
     if params[:author][:name] != ""
       author = Author.create(params[:author])
-    elsif (params[:author][:name] == "") && (book.author_id == nil)
-      redirect '/books/new-failure'
     else
       author = Author.find(params[:book][:author_id])
     end
     
     if params[:genre][:name] != ""
       genre = Genre.create(params[:genre])
-    elsif (params[:genre][:name]) == "" && (book.genre_id == nil)
-      redirect '/books/new-failure'
     else
       genre = Genre.find(params[:book][:genre_id])
     end
@@ -93,7 +93,7 @@ class BookController < ApplicationController
   patch '/books/:slug' do
     book = Book.find_book_by_slug(params[:slug])
 
-    if book.title = ""
+    if book.title == ""
       redirect '/books/new-failure'
     elsif (params[:author][:name] == "") && book.author_id == nil
       redirect '/books/new-failure'
@@ -103,7 +103,9 @@ class BookController < ApplicationController
 
     Book.all.each do |b|
       if book.slug_book == b.slug_book
-        redirect '/books/new-failure'
+        if book.id != b.id
+          redirect '/books/new-failure'
+        end
       end
     end
 
@@ -131,7 +133,7 @@ class BookController < ApplicationController
         book.delete
         redirect '/books'
       else
-        #Create error
+        redirect '/books/delete-failure'
       end
     else
       redirect '/login'
