@@ -8,6 +8,10 @@ class UserController < ApplicationController
     end
   end
 
+  get '/login-failure' do
+    erb :'/users/login-failure'
+  end
+
   get '/signup' do
     if logged_in?
       redirect '/books'
@@ -40,6 +44,7 @@ class UserController < ApplicationController
 
   post '/login' do
     user = User.find_by(name: params[:name])
+    redirect '/login-failure' if user == nil
     if user.name != "" && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect '/books'
