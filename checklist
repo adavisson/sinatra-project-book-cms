@@ -41,3 +41,16 @@ simon pickle
   books:
     Green Eggs And Ham - Dr. Seuss - Children's
     One Foot In Eden - Ron Rash - Fiction
+
+
+TODO:
+- Backend checks for signup - completed
+- For delete and patch make sure that only current user is able to perform - completed
+- Rewrite uniqueness checks to avoid looping through all objects
+    Book.all.each do |b|
+      if book.slug_book == b.slug_book
+        if book.id != b.id
+          redirect '/books/new-failure'
+        end
+      end
+    end

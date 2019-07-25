@@ -16,13 +16,17 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  helpers do
+  helpers do      #helpers block gives access in view
     def logged_in?
       !!session[:user_id]
     end
 
     def current_user
       User.find(session[:user_id])
+    end
+
+    def redirect_if_not_logged_in
+      redirect '/login' if !logged_in?
     end
   end
 

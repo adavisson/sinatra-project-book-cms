@@ -25,26 +25,23 @@ class UserController < ApplicationController
   end
 
   get '/users/:slug' do
-    if logged_in?
-      @user = User.find_by_slug(params[:slug])
-      erb :'/users/show'
-    else
-      redirect '/login'
-    end
+    redirect_if_not_logged_in
+    
+    @user = User.find_by_slug(params[:slug])
+    erb :'/users/show'
   end
 
   get '/logout' do
-    if logged_in?
-      session.clear
-      redirect '/'
-    else
-      redirect '/login'
-    end
+    redirect_if_not_logged_in
+
+    session.clear
+    redirect '/'
   end
 
   post '/login' do
     user = User.find_by(name: params[:name])
     redirect '/login-failure' if user == nil
+    
     if user.name != "" && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect '/books'
@@ -54,18 +51,23 @@ class UserController < ApplicationController
   end
 
   post '/signup' do
-    user = User.new(params[:user])
-    User.all.each do |u|
-      if u.name == user.name
-        redirect '/signup-failure'
-      end
+    #User.all.each do |u|
+    #  if u.name == user.name
+    #    redirect '/signup-failure'
+    #  end
+    #end
+
+    if User.find_by(name: params[:user][:name])
+      redirect '/signup-failure'
     end
-      
-    if user.save
+
+    user = User.new(params[:user])
+    
+    if (user.name != "") && (user.email != "") && (user.password != "") && user.save
       session[:user_id] = user.id
       redirect '/books'
     else
-      redirect '/signup'
+      redirect '/signup-failure'
     end
   end
 
